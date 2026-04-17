@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debrief — Meeting Intelligence by Brassin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="starfield"></canvas>
+
+    <header id="site-header">
+      <div class="header-inner">
+        <a href="#" class="logo">DEBRIEF</a>
+        <nav>
+          <a href="#outputs">What you get</a>
+          <a href="#howitworks">How it works</a>
+          <a href="#compno">Compno</a>
+          <a href="#demo">Demo</a>
+        </nav>
+        <a href="#demo" class="btn-primary">Request demo</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Your meetings are your most underused business asset</p>
+        <h1>Every conversation<br /><span class="gradient-text">becomes permanent intelligence</span></h1>
+        <p class="hero-lead">
+          Debrief turns your meeting recordings into a structured, searchable knowledge bank.
+          Decisions, commitments, and insights — captured automatically, indexed permanently,
+          and ready to power your next strategic move.
+        </p>
+        <div class="hero-ctas">
+          <a href="#demo" class="btn-primary">Book a demo</a>
+          <a href="#howitworks" class="btn-ghost">How it works ↓</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-n">Zero</span><span class="stat-l">manual effort</span></div>
+          <div class="stat"><span class="stat-n">Every</span><span class="stat-l">meeting searchable</span></div>
+          <div class="stat"><span class="stat-n">One</span><span class="stat-l">source of truth</span></div>
+        </div>
+      </div>
+
+      <div class="hero-scene" id="heroScene">
+        <div class="mock-wrap" id="mockWrap">
+          <div class="mock-window" id="mockWindow">
+            <div class="win-bar">
+              <div class="win-dots">
+                <span class="dot dot-r"></span>
+                <span class="dot dot-y"></span>
+                <span class="dot dot-g"></span>
+              </div>
+              <span class="win-title">Debrief · Q4_strategy.mp4</span>
+              <span class="win-badge" id="winBadge">PROCESSING</span>
+            </div>
+            <div class="win-body" id="winBody">
+
+              <div class="win-row upload-row" id="sUpload" style="display:none">
+                <span class="ri ri-upload">↑</span>
+                <span class="row-name">Q4_strategy.mp4</span>
+                <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+                <span class="prog-pct" id="progPct">0%</span>
+              </div>
+
+              <div class="win-divider" id="sDiv1" style="display:none">INGESTION</div>
+              <div class="win-row step-row" id="sConv" style="display:none">
+                <span class="ri ri-ok">✓</span><span>Converted → 16 kHz mono WAV</span>
+              </div>
+              <div class="win-row step-row" id="sNorm" style="display:none">
+                <span class="ri ri-ok">✓</span><span>Normalized · EBU R128 loudness</span>
+              </div>
+
+              <div class="win-divider" id="sDiv2" style="display:none">TRANSCRIPTION</div>
+              <div class="win-row step-row" id="sAsr" style="display:none">
+                <span class="ri ri-spin" id="asrIcon">⟳</span>
+                <span id="asrLabel">Whisper ASR · transcribing segments…</span>
+              </div>
+              <div class="win-transcript" id="sTrans" style="display:none">
+                <div class="tline" id="t1" style="display:none">
+                  <span class="ts">[00:02]</span><span class="spk sa">Alice</span>
+                  <span>Good morning team, let's kick off the Q4 review —</span>
+                </div>
+                <div class="tline" id="t2" style="display:none">
+                  <span class="ts">[00:18]</span><span class="spk sb">Bob</span>
+                  <span>I've reviewed the product roadmap. Three blockers remain.</span>
+                </div>
+                <div class="tline" id="t3" style="display:none">
+                  <span class="ts">[01:05]</span><span class="spk sa">Alice</span>
+                  <span>Ship v2 before end of quarter. Non-negotiable.</span>
+                </div>
+                <div class="tline" id="t4" style="display:none">
+                  <span class="ts">[02:34]</span><span class="spk sc">Carol</span>
+                  <span>Legal review on the vendor contract is still pending.</span>
+                </div>
+              </div>
+
+              <div class="win-divider" id="sDiv3" style="display:none">DIARIZATION</div>
+              <div class="win-row step-row" id="sDiar" style="display:none">
+                <span class="ri ri-ok">✓</span>
+                <span>pyannote.audio · <strong>3 speakers</strong> identified &amp; aligned</span>
+              </div>
+
+              <div class="win-divider" id="sDiv4" style="display:none">LLM SUMMARIZATION</div>
+              <div class="win-row step-row" id="sLlm" style="display:none">
+                <span class="ri ri-spin" id="llmIcon">⟳</span>
+                <span id="llmLabel">Extracting structured intelligence…</span>
+              </div>
+              <div class="win-cards" id="sCards" style="display:none">
+                <div class="wcard wcard-actions">
+                  <div class="wcard-h">⚡ Action Items</div>
+                  <div class="wcard-i">→ Alice · Ship v2 by Friday <span class="ts">[01:05]</span></div>
+                  <div class="wcard-i">→ Carol · Complete legal review <span class="ts">[02:34]</span></div>
+                </div>
+                <div class="wcard wcard-dec">
+                  <div class="wcard-h">🎯 Key Decisions</div>
+                  <div class="wcard-i">→ Q4 launch moved to Q1 <span class="ts">[08:45]</span></div>
+                </div>
+              </div>
+
+              <div class="win-divider" id="sDiv5" style="display:none">CLIPS + INDEX</div>
+              <div class="win-row step-row" id="sClips" style="display:none">
+                <span class="ri ri-ok">✓</span>
+                <span>3 highlight clips extracted · FFmpeg · captioned</span>
+              </div>
+              <div class="win-row step-row" id="sIdx" style="display:none">
+                <span class="ri ri-ok">✓</span>
+                <span>Indexed → ChromaDB · semantic search ready</span>
+              </div>
+
+              <div class="win-done" id="sDone" style="display:none">
+                <span class="done-all">ANALYSIS COMPLETE · 100%</span>
+                <span class="done-compno">Synced → Compno ↗</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTPUTS -->
+    <section class="outputs" id="outputs">
+      <p class="section-label">What you get</p>
+      <h2 class="section-h2">Your meetings, working for you</h2>
+      <p class="section-lead">Every recording becomes a permanent intelligence asset your whole organization can act on.</p>
+      <div class="outputs-grid">
+        <div class="out-card reveal">
+          <div class="out-icon">📜</div>
+          <h3>Full Meeting Record</h3>
+          <p>A permanent, speaker-attributed transcript of every session. No disputes. No misattributions. A living audit log of every word spoken.</p>
+        </div>
+        <div class="out-card reveal">
+          <div class="out-icon">📋</div>
+          <h3>Executive Summary</h3>
+          <p>The context, key discussion points, and outcomes of any meeting — condensed to what leadership actually needs. Catch up on a 2-hour session in 2 minutes.</p>
+        </div>
+        <div class="out-card reveal">
+          <div class="out-icon">⚡</div>
+          <h3>Action Ownership</h3>
+          <p>Every commitment extracted with its owner and deadline. Stop losing track of who promised what, and hold people accountable with a timestamped record.</p>
+        </div>
+        <div class="out-card reveal">
+          <div class="out-icon">🎯</div>
+          <h3>Decision Audit Trail</h3>
+          <p>A searchable archive of every strategic decision — when it was made, by whom, and the context behind it. Institutional memory that never leaves when people do.</p>
+        </div>
+        <div class="out-card reveal">
+          <div class="out-icon">🎬</div>
+          <h3>Moment Clips</h3>
+          <p>The exact minute that mattered, clipped and shareable. Bring a critical commitment or decision into any conversation without making anyone rewatch the whole call.</p>
+        </div>
+        <div class="out-card reveal">
+          <div class="out-icon">🔍</div>
+          <h3>Knowledge Search</h3>
+          <p>Ask any question across your entire meeting history — months or years of recordings — and get the right answer instantly. Your org's knowledge, always on tap.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="pipeline-section" id="howitworks">
+      <p class="section-label">How it works</p>
+      <h2 class="section-h2">From recording to ready intelligence</h2>
+      <p class="section-lead">Drop in a file. Walk away. Debrief does the rest — fully automated, no configuration required.</p>
+      <div class="pipeline-grid hiw-grid">
+        <div class="pipe-node reveal">
+          <div class="pn-num">01</div>
+          <h4>Upload</h4>
+          <p>Drop in any meeting recording — video or audio — from any platform. Debrief accepts whatever format your team uses.</p>
+          <span class="pn-tag">Any format · Any length</span>
+        </div>
+        <div class="pipe-node reveal">
+          <div class="pn-num">02</div>
+          <h4>Analyze</h4>
+          <p>Debrief identifies every speaker, captures every decision and commitment, and clips the moments that mattered. All automatically.</p>
+          <span class="pn-tag">Speaker ID · Decisions · Actions</span>
+        </div>
+        <div class="pipe-node reveal">
+          <div class="pn-num">03</div>
+          <h4>Search</h4>
+          <p>Your entire meeting library becomes instantly queryable. Ask a business question — get the answer, the speaker, and the timestamp.</p>
+          <span class="pn-tag">Natural language · Instant results</span>
+        </div>
+        <div class="pipe-node reveal">
+          <div class="pn-num">04</div>
+          <h4>Activate</h4>
+          <p>Feed your meeting intelligence directly into Compno to draft business cases, run market analysis, scope research, or build strategy documents — with full meeting context behind every output.</p>
+          <span class="pn-tag">Compno · Docs · Research · Strategy</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPNO -->
+    <section class="compno" id="compno">
+      <div class="compno-copy">
+        <p class="eyebrow">Native connector</p>
+        <h2 class="section-h2">Debrief powers <span class="gradient-text">Compno</span></h2>
+        <p>
+          Compno is Brassin's multi-agent document intelligence system. Debrief connects directly into it,
+          turning your meeting bank into active business output. Agents draw on everything your team has
+          ever discussed — and turn it into work.
+        </p>
+        <p style="margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.7;">
+          Draft a business case grounded in six months of stakeholder calls. Run a market analysis backed
+          by your own customer conversations. Scope a product roadmap from what your team actually decided.
+          Your meetings stop being archives and start being infrastructure.
+        </p>
+        <div class="compno-tags">
+          <span>Use case drafting</span>
+          <span>Market &amp; competitive research</span>
+          <span>Strategy documents</span>
+          <span>Stakeholder analysis</span>
+        </div>
+      </div>
+      <div class="compno-flow reveal">
+        <!-- Source node -->
+        <div class="cf-node cf-brassin">
+          <span>Debrief</span>
+          <small>Meeting Intelligence</small>
+        </div>
+
+        <!-- Main pipe with two racing data packets -->
+        <div class="cf-pipe">
+          <div class="cf-line"></div>
+          <div class="cf-dot" id="cfDot"></div>
+          <div class="cf-dot cf-dot-b"></div>
+          <div class="cf-label">Structured output</div>
+        </div>
+
+        <!-- Compno hub with pulsing rings -->
+        <div class="cf-compno-wrap">
+          <div class="cf-ring cf-ring-1"></div>
+          <div class="cf-ring cf-ring-2"></div>
+          <div class="cf-ring cf-ring-3"></div>
+          <div class="cf-node cf-compno">
+            <span>Compno</span>
+            <small>Multi-agent Core</small>
+          </div>
+        </div>
+
+        <!-- Robot agent cluster -->
+        <div class="cf-network">
+          <div class="cf-network-stem"></div>
+          <div class="cf-network-bar"></div>
+          <div class="cf-agents-row">
+
+            <div class="cf-agent">
+              <div class="cf-agent-wire"><div class="cf-agent-bead"></div></div>
+              <div class="cf-agent-pod">
+                <div class="cf-agent-emoji">🤖</div>
+                <span>Research</span>
+                <small>Market &amp; competitive</small>
+              </div>
+            </div>
+
+            <div class="cf-agent">
+              <div class="cf-agent-wire"><div class="cf-agent-bead"></div></div>
+              <div class="cf-agent-pod">
+                <div class="cf-agent-emoji">🤖</div>
+                <span>Drafting</span>
+                <small>Business cases</small>
+              </div>
+            </div>
+
+            <div class="cf-agent">
+              <div class="cf-agent-wire"><div class="cf-agent-bead"></div></div>
+              <div class="cf-agent-pod">
+                <div class="cf-agent-emoji">🤖</div>
+                <span>Strategy</span>
+                <small>Roadmaps &amp; plans</small>
+              </div>
+            </div>
+
+            <div class="cf-agent">
+              <div class="cf-agent-wire"><div class="cf-agent-bead"></div></div>
+              <div class="cf-agent-pod">
+                <div class="cf-agent-emoji">🤖</div>
+                <span>Stakeholder</span>
+                <small>Analysis &amp; briefs</small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section class="demo" id="demo">
+      <div class="demo-inner">
+        <div class="demo-copy">
+          <p class="eyebrow">Request a demo</p>
+          <h2 class="section-h2">See Debrief in action</h2>
+          <p>We'll run a live session using your actual recordings so you can see the value immediately.</p>
+          <ul class="demo-perks">
+            <li>↗ Live demo with your real meeting recordings</li>
+            <li>↗ Search and knowledge bank walkthrough</li>
+            <li>↗ Compno integration — from meeting to draft document</li>
+          </ul>
+        </div>
+        <form class="demo-form" id="demoForm" novalidate>
+          <div class="field">
+            <label for="dname">Name</label>
+            <input type="text" id="dname" name="name" placeholder="Ada Lovelace" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="demail">Work email</label>
+            <input type="email" id="demail" name="email" placeholder="ada@company.com" autocomplete="email" required />
+          </div>
+          <button type="submit" class="btn-primary btn-full">Send demo request →</button>
+          <p class="form-fine">Opens your email client · sends to business@brassin.com</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- BRASSIN CTA -->
+    <section class="brassin-cta">
+      <div class="brassin-cta-inner">
+        <p class="eyebrow">Built by Brassin</p>
+        <h2 class="section-h2">Turning frontier AI into<br /><span class="gradient-text">real leverage.</span></h2>
+        <p class="brassin-cta-lead">Debrief is one of the production AI systems built and shipped by Brassin — an end-to-end AI engineering studio. We research, design, and deploy systems that compound value for the teams that use them.</p>
+        <a href="https://brassinai.com/" target="_blank" rel="noopener noreferrer" class="btn-primary">Explore Brassin →</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-logo">DEBRIEF</p>
+          <p class="footer-sub">Meeting intelligence by Brassin.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#outputs">What you get</a>
+          <a href="#howitworks">How it works</a>
+          <a href="#compno">Compno</a>
+          <a href="#demo">Demo</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
